@@ -7,6 +7,7 @@ import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 @Entity
 @Data
 @NoArgsConstructor
-public class ProductStock {
+public class ProductStock implements Serializable{
     @Id
     @GeneratedValue
     private Long id;
@@ -27,6 +28,6 @@ public class ProductStock {
     public ProductStock(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
-        this.createdDate = this.createdDate.now();
+        this.createdDate = LocalDate.now();
     }
 }
