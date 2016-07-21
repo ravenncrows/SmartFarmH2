@@ -22,3 +22,9 @@ spring:
    name:
    username: sa
    password:
+
+# Logging
+#logging:
+#  level:
+#    org.springframework.web: DEBUG
+#    org.hibernate: DEBUG
