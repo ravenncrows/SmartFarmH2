@@ -22,7 +22,7 @@ public class LoggingAspect {
     @Autowired
     private Environment env;
 
-    @Pointcut("within(*..*Service) || within(*..*Repository) || within(*..*Dao)")
+    @Pointcut("within(com.smartfarmh2.*.*..*Service) || within(com.smartfarmh2.*.*..*Repository) || within(com.smartfarmh2.*.*..*Dao)")
     public void loggingPointcut() {
     }
 
