@@ -1,0 +1,22 @@
+# Server
+server:
+    port: 80
+# H2 Web Console (H2ConsoleProperties)
+spring:
+  h2:
+    console:
+      enabled: true # Enable the console.
+      path: /h2-console # Path at which the console will be available.
+  datasource:
+    url: jdbc:h2:mem:smartfarm22;DB_CLOSE_DELAY=-1
+    name:
+    username: sa
+    password:
+  jpa:
+    database: H2
+    show_sql: true
+    properties:
+      hibernate.cache.use_second_level_cache: true
+      hibernate.cache.use_query_cache: false
+    hibernate:
+      ddl-auto: create-drop
