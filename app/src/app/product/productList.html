@@ -1,0 +1,33 @@
+<table class="table table-hover">
+  <tr>
+    <th>Product</th>
+    <th>Product Unit</th>
+    <th class="text-center">Update</th>
+    <th class="text-center">Delete</th>
+
+  </tr>
+  <tr ng-repeat="product in vm.products">
+    <td>{{product.name}}</td>
+    <td>
+      {{product.unit}}
+    </td>
+    <td class="text-center"><a ng-href="#/listProduct"><button class="btn btn-default"
+                                                               ng-click="vm.updateProduct(product.id)" style="width: 90%">Update</button></a></td>
+    <td class="text-center"><a ng-href="#/listProduct"><button class="btn btn-danger"
+                                                               ng-click="vm.deleteProduct(product.id)" style="width: 90%">Delete</button></a></td>
+  </tr>
+  <tr>
+    <td>
+      <input ng-model="vm.product.name" class="form-control" placeholder="Edit product name">
+    </td>
+    <td>
+      <input ng-model="vm.product.unit" class="form-control" placeholder="Edit product unit">
+    </td>
+  </tr>
+  <tr>
+    <td ><input type="text" ng-model="vm.newProduct.name" class="form-control" width="90%" placeholder="New product name"></td>
+    <td ><input type="text" ng-model="vm.newProduct.unit" class="form-control" width="90%" placeholder="New product unit"></td>
+    <td colspan="2" class="text-center"><button ng-click="vm.addProduct()" class="btn btn-success" style="width: 90%">ADD</button></td>
+  </tr>
+
+</table>
