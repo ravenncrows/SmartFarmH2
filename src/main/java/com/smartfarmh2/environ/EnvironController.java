@@ -49,4 +49,12 @@ public class EnvironController {
                                           @PathVariable("day") Integer day) {
         return environService.calculateStatOfDay(LocalDate.of(year,month,day));
     }
+
+    // TODO: remove this after fix Ardruino
+    @RequestMapping(value = "/environ/temp", method = RequestMethod.GET)
+    public Environ temporaryReceiveDataPath(@RequestParam("temp") Double temp,
+                                         @RequestParam("humid") Double humid,
+                                         @RequestParam("soil") Double soil){
+        return environService.create(new Environ(temp,humid,soil));
+    }
 }
