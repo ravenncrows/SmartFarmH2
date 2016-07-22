@@ -3,6 +3,7 @@ package com.smartfarmh2.environ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -38,5 +39,15 @@ public class EnvironServiceImpl implements EnvironService {
     @Override
     public Environ findNewestOne() {
         return environDao.findNewestOne();
+    }
+
+    @Override
+    public EnvironStat calculateStatOfHour(Integer hour) {
+        return null;
+    }
+
+    @Override
+    public EnvironStat calculateStatOfDay(LocalDate date) {
+        return null;
     }
 }
