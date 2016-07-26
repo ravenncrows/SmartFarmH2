@@ -11,6 +11,8 @@
     var vm = this;
     vm.environ = null;
     vm.subscription = null;
+    vm.statisticsDate = moment().format('YYYY-MM-DD');
+    vm.statisticsDateLimit = moment().toString();
 
     $stomp.setDebug(function (args) {
       $log.debug(args)

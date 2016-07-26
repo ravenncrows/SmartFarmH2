@@ -1,5 +1,7 @@
+<h3>Realtime monitor</h3>
 <table class="table table-hover">
   <tr>
+    <th>Device name</th>
     <th>Temperature</th>
     <th>Humid</th>
     <th>Soil</th>
@@ -7,6 +9,7 @@
 
   </tr>
   <tr ng-hide="!vm.environ">
+    <td>{{vm.environ.deviceName}}</td>
     <td>{{vm.environ.temp}}</td>
     <td>{{vm.environ.humid}}</td>
     <td>{{vm.environ.soil}}</td>
@@ -18,6 +21,38 @@
     </td>
   </tr>
   <tr ng-hide="vm.environ">
+    <td>No data</td>
+    <td>No data</td>
+    <td>No data</td>
+    <td>No data</td>
+    <td>No data</td>
+  </tr>
+
+</table>
+
+<h3>Statistics</h3>
+<form>
+  <div class="form-group col-xs-12 col-sm-8 col-md-4">
+    <label for="statistic-date">Date</label>
+    <datepicker
+      date-format="yyyy-MM-dd"
+      date-max-limit={{vm.statisticsDateLimit}}
+      button-prev="<i class=&quot;fa fa-arrow-circle-left&quot;></i>"
+      button-next="<i class=&quot;fa fa-arrow-circle-right&quot;></i>"
+    >
+      <input id="statistic-date" class="font-fontawesome font-light radius3 ng-pristine ng-valid ng-touched"
+             ng-model="vm.statisticsDate" type="text" placeholder="&#xf073; Choose a date" style="font-family:Arial, FontAwesome" />
+    </datepicker>
+  </div>
+</form>
+<table class="table table-hover">
+  <tr>
+    <th>Date</th>
+    <th>Average Temperature</th>
+    <th>Average Humid</th>
+    <th>Average Soil</th>
+  </tr>
+  <tr>
     <td>No data</td>
     <td>No data</td>
     <td>No data</td>
