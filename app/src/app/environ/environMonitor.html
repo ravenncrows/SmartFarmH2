@@ -1,13 +1,15 @@
 <h3>Realtime monitor</h3>
 <table class="table table-hover">
+  <thead>
   <tr>
     <th>Device name</th>
     <th>Temperature</th>
     <th>Humid</th>
     <th>Soil</th>
     <th>Last update</th>
-
   </tr>
+  </thead>
+  <tbody>
   <tr ng-hide="!vm.environ">
     <td>{{vm.environ.deviceName}}</td>
     <td>{{vm.environ.temp}}</td>
@@ -15,7 +17,8 @@
     <td>{{vm.environ.soil}}</td>
     <td>
       {{
-      vm.environ.createdDate.hour + ':' + vm.environ.createdDate.second + ':' + (vm.environ.createdDate.nano / (1000 * 1000) )
+      vm.environ.createdDate.hour + ':' + vm.environ.createdDate.minute + ':' + vm.environ.createdDate.second
+      + ':' + (vm.environ.createdDate.nano / (1000 * 1000) )
       + ' ' + vm.environ.createdDate.year + '/' + vm.environ.createdDate.month + '/' + vm.environ.createdDate.dayOfMonth
       }}
     </td>
@@ -27,11 +30,12 @@
     <td>No data</td>
     <td>No data</td>
   </tr>
+  </tbody>
 
 </table>
 
 <h3>Statistics</h3>
-<form>
+<form ng-submit="vm.getStatistics()">
   <div class="form-group col-xs-12 col-sm-8 col-md-4">
     <label for="statistic-date">Date</label>
     <datepicker
@@ -40,23 +44,53 @@
       button-prev="<i class=&quot;fa fa-arrow-circle-left&quot;></i>"
       button-next="<i class=&quot;fa fa-arrow-circle-right&quot;></i>"
     >
-      <input id="statistic-date" class="font-fontawesome font-light radius3 ng-pristine ng-valid ng-touched"
+      <input id="statistic-date" class="form-control font-fontawesome font-light radius3 ng-pristine ng-valid ng-touched"
              ng-model="vm.statisticsDate" type="text" placeholder="&#xf073; Choose a date" style="font-family:Arial, FontAwesome" />
     </datepicker>
   </div>
+  <div class="form-group col-xs-12 col-sm-8 col-md-4">
+    <label for="statistic-time">Time</label>
+    <select id="statistic-time"
+            class="form-control"
+            ng-model="vm.statisticsHour"
+            ng-options="hour as hour for hour in vm.statisticsHourList"
+    >
+      <option value="" ng-selected="true">None</option>
+      <option ng-repeat="hour in vm.statisticsHourList" value={{hour}}>{{hour}}</option>
+    </select>
+  </div>
+  <div class="form-group col-xs-12 col-sm-8 col-md-4">
+    <button type="submit" class="btn btn-primary">View</button>
+  </div>
 </form>
 <table class="table table-hover">
+  <thead>
   <tr>
     <th>Date</th>
+    <th>Highest Temperature</th>
+    <th>Lowest Temperature</th>
     <th>Average Temperature</th>
     <th>Average Humid</th>
+    <th>Lowest Humid</th>
+    <th>Average Humid</th>
+    <th>Average Soil</th>
+    <th>Lowest Soil</th>
     <th>Average Soil</th>
   </tr>
+  </thead>
+  <tbody>
   <tr>
     <td>No data</td>
     <td>No data</td>
     <td>No data</td>
     <td>No data</td>
+    <td>No data</td>
+    <td>No data</td>
+    <td>No data</td>
+    <td>No data</td>
+    <td>No data</td>
+    <td>No data</td>
   </tr>
+  </tbody>
 
 </table>

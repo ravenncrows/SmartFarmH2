@@ -27,6 +27,16 @@
         controller: 'monitorEnvironController',
         controllerAs: 'vm'
       })
+      .when('/listDevice', {
+        templateUrl: 'app/device/deviceList.html',
+        controller: 'listDeviceController',
+        controllerAs: 'vm',
+        resolve: {
+          devices : function(deviceService){
+            return deviceService.query();
+          }
+        }
+      })
       .otherwise({
         redirectTo: '/listProduct'
       });
