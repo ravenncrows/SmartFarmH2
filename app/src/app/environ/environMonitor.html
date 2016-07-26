@@ -1,0 +1,27 @@
+<table class="table table-hover">
+  <tr>
+    <th>Temperature</th>
+    <th>Humid</th>
+    <th>Soil</th>
+    <th>Last update</th>
+
+  </tr>
+  <tr ng-hide="!vm.environ">
+    <td>{{vm.environ.temp}}</td>
+    <td>{{vm.environ.humid}}</td>
+    <td>{{vm.environ.soil}}</td>
+    <td>
+      {{
+      vm.environ.createdDate.hour + ':' + vm.environ.createdDate.second + ':' + (vm.environ.createdDate.nano / (1000 * 1000) )
+      + ' ' + vm.environ.createdDate.year + '/' + vm.environ.createdDate.month + '/' + vm.environ.createdDate.dayOfMonth
+      }}
+    </td>
+  </tr>
+  <tr ng-hide="vm.environ">
+    <td>No data</td>
+    <td>No data</td>
+    <td>No data</td>
+    <td>No data</td>
+  </tr>
+
+</table>

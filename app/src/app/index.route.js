@@ -22,6 +22,11 @@
         controller: 'editProductStockController',
         controllerAs: 'vm'
       })
+      .when('/monitor/environ', {
+        templateUrl: 'app/environ/environMonitor.html',
+        controller: 'monitorEnvironController',
+        controllerAs: 'vm'
+      })
       .otherwise({
         redirectTo: '/listProduct'
       });
