@@ -8,4 +8,5 @@ public interface DeviceService {
     void delete(Long id);
     Device getDevice(Long id);
     List<Device> list();
+    Device findOneByName(String name);
 }

@@ -1,10 +1,8 @@
 package com.smartfarmh2.environ;
+import com.smartfarmh2.device.Device;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -18,6 +16,8 @@ public class Environ implements Serializable{
     private Double humid;
     private Double soil;
     private LocalDateTime createdDate;
+    @ManyToOne
+    private Device device;
 
     public Environ() {
     }

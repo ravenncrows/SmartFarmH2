@@ -34,4 +34,9 @@ public class DeviceServiceImpl implements DeviceService {
     public List<Device> list() {
         return deviceDao.list();
     }
+
+    @Override
+    public Device findOneByName(String name) {
+        return deviceDao.findOneByName(name);
+    }
 }

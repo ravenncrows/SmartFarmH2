@@ -34,4 +34,9 @@ public class DeviceDaoImpl implements DeviceDao {
     public List<Device> list() {
         return deviceRepository.findAll();
     }
+
+    @Override
+    public Device findOneByName(String name) {
+        return deviceRepository.findOneByName(name);
+    }
 }
