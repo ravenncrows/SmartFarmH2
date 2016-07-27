@@ -9,7 +9,7 @@
   /** @ngInject */
   function monitorEnvironController($stomp, $log, backendUrl, $timeout, environService) {
     var vm = this;
-    vm.environ = null;
+    vm.environs = [];
     vm.subscription = null;
     vm.statisticsDate = moment().format('YYYY-MM-DD');
     vm.statisticsDateLimit = moment().toString();
@@ -31,10 +31,30 @@
       });
 
     function handleMessage (payload, headers, res) {
+      if(deviceExistInEnvirons(payload.device.id)){
+        updateEnviron(payload)
+      }
+      else{
+        $timeout(function(){
+          vm.environs.push(payload);
+        },0); 
+      }
+    }
+    
+    function deviceExistInEnvirons(deviceId){
+      return vm.environs.some(function(environ){
+        return deviceId == environ.device.id;
+      });
+    }
+    
+    function updateEnviron(payload) {
       $timeout(function(){
-        vm.environ = payload;
+        vm.environs = vm.environs.map(function(environ){
+          return environ.device.id == payload.device.id ? payload : environ;
+        });
       },0);
     }
+    
     function getStatistics() {
       
     }

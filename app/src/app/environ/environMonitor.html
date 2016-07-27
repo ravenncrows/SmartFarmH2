@@ -9,29 +9,30 @@
     <th>Last update</th>
   </tr>
   </thead>
-  <tbody>
-  <tr ng-hide="!vm.environ">
-    <td>{{vm.environ.device.name}}</td>
-    <td>{{vm.environ.temp}}</td>
-    <td>{{vm.environ.humid}}</td>
-    <td>{{vm.environ.soil}}</td>
+  <tbody ng-hide="vm.environs.length <= 0">
+  <tr ng-repeat="environ in vm.environs">
+    <td>{{environ.device.name}}</td>
+    <td>{{environ.temp}}</td>
+    <td>{{environ.humid}}</td>
+    <td>{{environ.soil}}</td>
     <td>
       {{
-      vm.environ.createdDate.hour + ':' + vm.environ.createdDate.minute + ':' + vm.environ.createdDate.second
-      + ':' + (vm.environ.createdDate.nano / (1000 * 1000) )
-      + ' ' + vm.environ.createdDate.year + '/' + vm.environ.createdDate.month + '/' + vm.environ.createdDate.dayOfMonth
+      environ.createdDate.hour + ':' + environ.createdDate.minute + ':' + environ.createdDate.second
+      + ':' + (environ.createdDate.nano / (1000 * 1000) )
+      + ' ' + environ.createdDate.year + '/' + environ.createdDate.month + '/' + environ.createdDate.dayOfMonth
       }}
     </td>
   </tr>
-  <tr ng-hide="vm.environ">
-    <td>No data</td>
-    <td>No data</td>
-    <td>No data</td>
-    <td>No data</td>
-    <td>No data</td>
-  </tr>
   </tbody>
-
+<tbody ng-hide="vm.environs.length > 0">
+<tr>
+  <td>No data</td>
+  <td>No data</td>
+  <td>No data</td>
+  <td>No data</td>
+  <td>No data</td>
+</tr>
+</tbody>
 </table>
 
 <h3>Statistics</h3>

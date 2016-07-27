@@ -36,8 +36,13 @@ public class SmartFarmH2Application implements CommandLineRunner {
 		productRepository.save(p);
 
 		productStockRepository.save(new ProductStock(productRepository.findOne(1L),20));
+
 		Device device = new Device();
 		device.setName("Exp01");
 		deviceService.create(device);
+
+		Device device2 = new Device();
+		device2.setName("Exp02");
+		deviceService.create(device2);
 	}
 }
