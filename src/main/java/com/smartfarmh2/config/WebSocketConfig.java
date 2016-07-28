@@ -13,7 +13,7 @@ import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/environ");
+        registry.enableSimpleBroker("/environ", "/environStat");
         registry.setApplicationDestinationPrefixes("/app");
     }
 

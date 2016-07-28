@@ -2,6 +2,7 @@ package com.smartfarmh2.environ;
 
 import com.smartfarmh2.environ.Environ;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface EnvironDao {
@@ -10,5 +11,5 @@ public interface EnvironDao {
     void delete (Long id);
     Environ getEnviron (Long id);
     List<Environ> list();
-    Environ findNewestOne();
+    List<Environ> findByCreatedDateBetween(LocalDateTime start, LocalDateTime finish);
 }

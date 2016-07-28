@@ -25,7 +25,12 @@
       .when('/monitor/environ', {
         templateUrl: 'app/environ/environMonitor.html',
         controller: 'monitorEnvironController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        resolve : {
+          environStat: function( environService, $log) {
+            return environService.getStatisticsOfCurrentHour();
+          }
+        }
       })
       .when('/listDevice', {
         templateUrl: 'app/device/deviceList.html',

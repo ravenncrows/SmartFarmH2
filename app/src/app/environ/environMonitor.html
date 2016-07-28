@@ -1,4 +1,5 @@
 <h3>Realtime monitor</h3>
+<h4>Device monitor</h4>
 <table class="table table-hover">
   <thead>
   <tr>
@@ -24,15 +25,51 @@
     </td>
   </tr>
   </tbody>
-<tbody ng-hide="vm.environs.length > 0">
-<tr>
-  <td>No data</td>
-  <td>No data</td>
-  <td>No data</td>
-  <td>No data</td>
-  <td>No data</td>
-</tr>
-</tbody>
+  <tbody ng-hide="vm.environs.length > 0">
+  <tr>
+    <td>No data</td>
+    <td>No data</td>
+    <td>No data</td>
+    <td>No data</td>
+    <td>No data</td>
+  </tr>
+  </tbody>
+</table>
+
+<h4>Realtime statistics monitor (current hour)</h4>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>Last update</th>
+    <th>Highest Temperature</th>
+    <th>Lowest Temperature</th>
+    <th>Average Temperature</th>
+    <th>Average Humid</th>
+    <th>Lowest Humid</th>
+    <th>Average Humid</th>
+    <th>Average Soil</th>
+    <th>Lowest Soil</th>
+    <th>Average Soil</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>{{ vm.environStat ?
+      (vm.environStat.createdAt.hour + ':' + vm.environStat.createdAt.minute + ':' + vm.environStat.createdAt.second
+      + ':' + (vm.environStat.createdAt.nano / (1000 * 1000) )
+      + ' ' + vm.environStat.createdAt.year + '/' + vm.environStat.createdAt.month + '/' + vm.environStat.createdAt.dayOfMonth)
+      : 'No data'}}</td>
+    <td>{{ vm.environStat ? vm.environStat.highestTemp : 'No data'}}</td>
+    <td>{{ vm.environStat ? vm.environStat.lowestTemp : 'No data'}}</td>
+    <td>{{ vm.environStat ? vm.environStat.averageTemp : 'No data'}}</td>
+    <td>{{ vm.environStat ? vm.environStat.highestHumid : 'No data'}}</td>
+    <td>{{ vm.environStat ? vm.environStat.lowestHumid : 'No data'}}</td>
+    <td>{{ vm.environStat ? vm.environStat.averageHumid : 'No data'}}</td>
+    <td>{{ vm.environStat ? vm.environStat.highestSoil : 'No data'}}</td>
+    <td>{{ vm.environStat ? vm.environStat.lowestSoil : 'No data'}}</td>
+    <td>{{ vm.environStat ? vm.environStat.averageSoil : 'No data'}}</td>
+  </tr>
+  </tbody>
 </table>
 
 <h3>Statistics</h3>

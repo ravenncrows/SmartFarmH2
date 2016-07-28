@@ -26,6 +26,17 @@ public class EnvironStat {
     private Double lowestSoil;
     private Double highestSoil;
 
+    public EnvironStat(){
+        this.averageHumid = 0.0;
+        this.lowestHumid = 0.0;
+        this.highestHumid = 0.0;
+        this.averageTemp = 0.0;
+        this.lowestTemp = 0.0;
+        this.highestTemp = 0.0;
+        this.averageSoil = 0.0;
+        this.lowestSoil = 0.0;
+        this.highestSoil = 0.0;
+    }
     @PrePersist
     void preInsert() {
         this.createdAt = LocalDateTime.now();

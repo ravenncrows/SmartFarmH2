@@ -3,6 +3,7 @@ package com.smartfarmh2.environ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -36,7 +37,7 @@ public class EnvironDaoImpl implements EnvironDao {
     }
 
     @Override
-    public Environ findNewestOne() {
-        return environRepository.findTopByOrderByCreatedDateDesc();
+    public List<Environ> findByCreatedDateBetween(LocalDateTime start, LocalDateTime finish) {
+        return environRepository.findByCreatedDateBetween(start, finish);
     }
 }

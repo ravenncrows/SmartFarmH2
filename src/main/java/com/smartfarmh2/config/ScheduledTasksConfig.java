@@ -1,9 +1,12 @@
 package com.smartfarmh2.config;
 
 import com.smartfarmh2.environ.EnvironService;
+import com.smartfarmh2.environ.EnvironStat;
+import com.smartfarmh2.environ.EnvironStatService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -14,18 +17,19 @@ import java.util.Date;
 
 @Component
 public class ScheduledTasksConfig {
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    EnvironService environService;
-
+    EnvironStatService environStatService;
+    @Autowired
+    SimpMessagingTemplate simpMessagingTemplate;
     // Do every hour
     @Scheduled(cron = "0 0 * * * *")
     public void calculateEnvironStatEveryHour() {
-        log.info("The time is now " + dateFormat.format(new Date()) + " start calculating environ data");
-        environService.calculateStatOfHour(LocalDateTime.now().getHour());
-        //TODO : add EnvironStat to db
+        log.info("Date time: " + LocalDateTime.now().toString());
+        EnvironStat environStat = environStatService.calculateStatOfCurrentHour();
+        simpMessagingTemplate.convertAndSend("/environStat/today/hour/latest", environStat);
+        environStatService.create(environStat);
     }
 
 }

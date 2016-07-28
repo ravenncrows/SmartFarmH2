@@ -35,7 +35,7 @@ public class EnvironController {
     }
 
     @RequestMapping(value = "/environ/{id}",method = RequestMethod.GET)
-    public @ResponseBody Environ getProduct(@PathVariable("id") Long id){
+    public @ResponseBody Environ getEnviron(@PathVariable("id") Long id){
         return environService.getEnviron(id);
     }
 
@@ -47,18 +47,6 @@ public class EnvironController {
     @RequestMapping(value = "/environ/{id}",method = RequestMethod.DELETE)
     public @ResponseBody void delete(@PathVariable("id") Long id){
         environService.delete(id);
-    }
-
-    @RequestMapping(value = "/environ/stats/today/{hour}", method = RequestMethod.GET)
-    public @ResponseBody EnvironStat calculateStatOfHour(@PathVariable("hour") Integer hour){
-        return environService.calculateStatOfHour(hour);
-    }
-
-    @RequestMapping(value = "/environ/stats/date/{year/{month}/{day}", method = RequestMethod.GET)
-    public @ResponseBody EnvironStat calculateStatOfDay(@PathVariable("year") Integer year,
-                                          @PathVariable("month") Integer month,
-                                          @PathVariable("day") Integer day) {
-        return environService.calculateStatOfDay(LocalDate.of(year,month,day));
     }
 
     // TODO: remove this after fix Ardruino

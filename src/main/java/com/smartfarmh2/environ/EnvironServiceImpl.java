@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -37,17 +39,8 @@ public class EnvironServiceImpl implements EnvironService {
     }
 
     @Override
-    public Environ findNewestOne() {
-        return environDao.findNewestOne();
+    public List<Environ> findByCreatedDateBetween(LocalDateTime start, LocalDateTime finish) {
+        return environDao.findByCreatedDateBetween(start, finish);
     }
 
-    @Override
-    public EnvironStat calculateStatOfHour(Integer hour) {
-        return null;
-    }
-
-    @Override
-    public EnvironStat calculateStatOfDay(LocalDate date) {
-        return null;
-    }
 }
