@@ -10,12 +10,14 @@
   function monitorEnvironController($stomp, $log, backendUrl, $timeout, environService, environStat) {
     var vm = this;
     vm.environs = [];
-    vm.subscription = null;
+    vm.environSubscription = null;
+    vm.environStatSubscription = null;
     vm.statisticsDate = moment().format('YYYY-MM-DD');
     vm.statisticsDateLimit = moment().toString();
     vm.statisticsHourList = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
     vm.statisticsHour = -1;
-    vm.environStat = environStat;
+    vm.statistics = null;
+    vm.environStat = null;
     $stomp.setDebug(function (args) {
       $log.debug(args)
     });
@@ -23,9 +25,9 @@
 
     $stomp
       .connect(backendUrl)
-      // frame = CONNECTED headers
-      .then(function (frame) {
-        vm.subscription = $stomp.subscribe('/environ/monitor', handleEnvironMessage)
+      .then(function () {
+        vm.subscription = $stomp.subscribe('/environ/monitor', handleEnvironMessage);
+        vm.environStatSubscription = $stomp.subscribe('/environStat/today/hour/latest', handleEnvironStatMessage)
       })
       .catch(function(err) {
         $log.error(err);
@@ -56,8 +58,42 @@
       },0);
     }
 
-    function getStatistics() {
+    function handleEnvironStatMessage (payload, headers, res) {
+        $timeout(function(){
+          vm.environStat = payload;
+        },0);
+    }
 
+    function getStatistics() {
+      var year = vm.statisticsDate.split("-")[0];
+      var month = vm.statisticsDate.split("-")[1];
+      var day = vm.statisticsDate.split("-")[2];
+      var hour = vm.statisticsHour;
+
+      if(hour == -1 || hour == ''){
+        environService
+          .getStatisticsByDay(year, month, day)
+          .then(function(response){
+            $timeout(function(){
+              vm.statistics = response;
+            },0);
+          })
+          .catch(function(err){
+            $log.error(err);
+          });
+      }
+      else {
+        environService
+          .getStatisticsByHour(year, month, day, hour)
+          .then(function(response){
+            $timeout(function(){
+              vm.statistics = response;
+            },0);
+          })
+          .catch(function(err){
+            $log.error(err);
+          });
+      }
     }
   }
 })();

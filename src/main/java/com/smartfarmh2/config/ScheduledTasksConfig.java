@@ -29,7 +29,16 @@ public class ScheduledTasksConfig {
         log.info("Date time: " + LocalDateTime.now().toString());
         EnvironStat environStat = environStatService.calculateStatOfCurrentHour();
         simpMessagingTemplate.convertAndSend("/environStat/today/hour/latest", environStat);
+        //Save statistics
         environStatService.create(environStat);
+    }
+
+    // Do every 30s
+    @Scheduled(fixedDelay=30000)
+    public void calculateEnvironStatEveryMinute() {
+        log.info("Date time: " + LocalDateTime.now().toString());
+        EnvironStat environStat = environStatService.calculateStatOfCurrentHour();
+        simpMessagingTemplate.convertAndSend("/environStat/today/hour/latest", environStat);
     }
 
 }

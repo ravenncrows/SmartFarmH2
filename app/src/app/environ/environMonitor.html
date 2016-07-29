@@ -118,16 +118,20 @@
   </thead>
   <tbody>
   <tr>
-    <td>No data</td>
-    <td>No data</td>
-    <td>No data</td>
-    <td>No data</td>
-    <td>No data</td>
-    <td>No data</td>
-    <td>No data</td>
-    <td>No data</td>
-    <td>No data</td>
-    <td>No data</td>
+    <td>{{ vm.statistics ?
+      (vm.statistics.createdAt.hour + ':' + vm.statistics.createdAt.minute + ':' + vm.statistics.createdAt.second
+      + ':' + (vm.statistics.createdAt.nano / (1000 * 1000) )
+      + ' ' + vm.statistics.createdAt.year + '/' + vm.statistics.createdAt.month + '/' + vm.statistics.createdAt.dayOfMonth)
+      : 'Please select statistic date'}}</td>
+    <td>{{ vm.statistics ? vm.statistics.highestTemp : 'Please select statistic date'}}</td>
+    <td>{{ vm.statistics ? vm.statistics.lowestTemp : 'Please select statistic date'}}</td>
+    <td>{{ vm.statistics ? vm.statistics.averageTemp : 'Please select statistic date'}}</td>
+    <td>{{ vm.statistics ? vm.statistics.highestHumid : 'Please select statistic date'}}</td>
+    <td>{{ vm.statistics ? vm.statistics.lowestHumid : 'Please select statistic date'}}</td>
+    <td>{{ vm.statistics ? vm.statistics.averageHumid : 'Please select statistic date'}}</td>
+    <td>{{ vm.statistics ? vm.statistics.highestSoil : 'Please select statistic date'}}</td>
+    <td>{{ vm.statistics ? vm.statistics.lowestSoil : 'Please select statistic date'}}</td>
+    <td>{{ vm.statistics ? vm.statistics.averageSoil : 'Please select statistic date'}}</td>
   </tr>
   </tbody>
 
