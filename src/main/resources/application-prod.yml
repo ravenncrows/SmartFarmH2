@@ -3,20 +3,18 @@ server:
     port: 80
 # H2 Web Console (H2ConsoleProperties)
 spring:
-  h2:
-    console:
-      enabled: true # Enable the console.
-      path: /h2-console # Path at which the console will be available.
   datasource:
-    url: jdbc:h2:mem:smartfarm22;DB_CLOSE_DELAY=-1
+    url: jdbc:mysql://localhost:3306/smartfarm22
     name:
-    username: sa
+    username: root
     password:
   jpa:
-    database: H2
-    show_sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: MYSQL
+    show-sql: false
     properties:
-      hibernate.cache.use_second_level_cache: true
-      hibernate.cache.use_query_cache: false
+        hibernate.cache.use_second_level_cache: true
+        hibernate.cache.use_query_cache: false
+        hibernate.generate_statistics: false
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
