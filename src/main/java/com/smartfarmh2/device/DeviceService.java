@@ -9,4 +9,5 @@ public interface DeviceService {
     Device getDevice(Long id);
     List<Device> list();
     Device findOneByName(String name);
+    Boolean turnWaterOn(String deviceName);
 }

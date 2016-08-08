@@ -1,5 +1,7 @@
 package com.smartfarmh2.config;
 
+import com.smartfarmh2.device.DeviceService;
+import com.smartfarmh2.device.DeviceSettingService;
 import com.smartfarmh2.environ.EnvironService;
 import com.smartfarmh2.environ.EnvironStat;
 import com.smartfarmh2.environ.EnvironStatService;
@@ -23,6 +25,11 @@ public class ScheduledTasksConfig {
     EnvironStatService environStatService;
     @Autowired
     SimpMessagingTemplate simpMessagingTemplate;
+    @Autowired
+    DeviceSettingService deviceSettingService;
+    @Autowired
+    DeviceService deviceService;
+
     // Do every hour
     @Scheduled(cron = "0 0 * * * *")
     public void calculateEnvironStatEveryHour() {
@@ -39,6 +46,13 @@ public class ScheduledTasksConfig {
         log.info("Date time: " + LocalDateTime.now().toString());
         EnvironStat environStat = environStatService.calculateStatOfCurrentHour();
         simpMessagingTemplate.convertAndSend("/environStat/today/hour/latest", environStat);
+        // command device to turn on/off water if threshold is met
+        deviceSettingService.list().forEach(deviceSetting -> {
+            //check threshold
+            //if(threshold is met)
+            //then deviceService.turnWaterOn(deviceName);
+        });
+
     }
 
 }

@@ -1,46 +1,40 @@
 package com.smartfarmh2.device;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import java.util.List;
 
-@Service
-public class DeviceServiceImpl implements DeviceService {
-    @Autowired
-    DeviceDao deviceDao;
-
+public class DeviceSettingServiceImpl implements DeviceService {
     @Override
     public Device create(Device device) {
-        return deviceDao.create(device);
+        return null;
     }
 
     @Override
     public Device update(Device device) {
-        return deviceDao.update(device);
+        return null;
     }
 
     @Override
     public void delete(Long id) {
-        deviceDao.delete(id);
+
     }
 
     @Override
     public Device getDevice(Long id) {
-        return deviceDao.getDevice(id);
+        return null;
     }
 
     @Override
     public List<Device> list() {
-        return deviceDao.list();
+        return null;
     }
 
     @Override
     public Device findOneByName(String name) {
-        return deviceDao.findOneByName(name);
+        return null;
     }
 
     @Override
     public Boolean turnWaterOn(String deviceName) {
-        return false;
+        return null;
     }
 }
