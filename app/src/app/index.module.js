@@ -13,7 +13,8 @@
         'ngRoute',
         'ui.bootstrap',
         'toastr',
-        'ngResource+apiPrefix'
+        'ngResource+apiPrefix',
+        '720kb.datepicker'
       ]);
 
 })();

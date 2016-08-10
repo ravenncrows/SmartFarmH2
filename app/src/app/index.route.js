@@ -22,6 +22,26 @@
         controller: 'editProductStockController',
         controllerAs: 'vm'
       })
+      .when('/monitor/environ', {
+        templateUrl: 'app/environ/environMonitor.html',
+        controller: 'monitorEnvironController',
+        controllerAs: 'vm',
+        resolve : {
+          environStat: function( environService, $log) {
+            return environService.getStatisticsOfCurrentHour();
+          }
+        }
+      })
+      .when('/listDevice', {
+        templateUrl: 'app/device/deviceList.html',
+        controller: 'listDeviceController',
+        controllerAs: 'vm',
+        resolve: {
+          devices : function(deviceService){
+            return deviceService.query();
+          }
+        }
+      })
       .otherwise({
         redirectTo: '/listProduct'
       });
