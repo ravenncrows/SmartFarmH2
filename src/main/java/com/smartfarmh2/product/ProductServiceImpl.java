@@ -1,5 +1,6 @@
 package com.smartfarmh2.product;
 
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +11,20 @@ import java.util.List;
  */
 @Service
 public class ProductServiceImpl implements ProductService {
+
     @Autowired
-    ProductDao productDao;
+    private ProductDao productDao;
+
+    public ProductServiceImpl() {
+    }
+
+    public void setProductDao(ProductDao productDao) {
+        this.productDao = productDao;
+    }
+
+    public ProductServiceImpl(ProductDao productDao) {
+        this.productDao = productDao;
+    }
 
     @Override
     public Product create(Product product) {

@@ -12,6 +12,7 @@ import java.util.List;
 public class ProductDaoImpl implements ProductDao {
     @Autowired
     ProductRepository productRepository;
+
     @Override
     public Product create(Product product) {
         return productRepository.save(product);
