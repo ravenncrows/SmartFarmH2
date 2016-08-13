@@ -22,7 +22,7 @@ public class DeviceSettingController {
 
     @RequestMapping(value = "/deviceSettings/{id}",method = RequestMethod.GET)
     public  DeviceSetting getDevice(@PathVariable("id") Long id){
-        return deviceSettingService.getDevice(id);
+        return deviceSettingService.getDeviceSetting(id);
     }
 
     @RequestMapping(value = "/deviceSettings/{id}",method = RequestMethod.PUT)

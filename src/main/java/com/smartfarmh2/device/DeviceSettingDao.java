@@ -6,7 +6,7 @@ public interface DeviceSettingDao {
     DeviceSetting create (DeviceSetting deviceSetting);
     DeviceSetting update(DeviceSetting deviceSetting);
     void delete(Long id);
-    DeviceSetting getDevice(Long id);
+    DeviceSetting getDeviceSetting(Long id);
     List<DeviceSetting> list();
 }
 
