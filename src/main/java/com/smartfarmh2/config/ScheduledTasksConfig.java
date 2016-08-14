@@ -19,6 +19,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import Microgear.Microgear;
+
 @Component
 public class ScheduledTasksConfig {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -59,19 +61,20 @@ public class ScheduledTasksConfig {
         simpMessagingTemplate.convertAndSend("/environStat/today/hour/latest", environStat);
 
         // command device to turn on/off water if threshold is met
-//        Microgear microgear =  new Microgear();
-//        microgear.connect(netPieAppId,netPieKey,netPieSecret);
-//        deviceSettingService.list().forEach(deviceSetting -> {
-//
-//            boolean isMetThreshold = deviceSetting.getWaterThreshold() < environStat.getAverageHumid();
-//            //check threshold
-//            if(isMetThreshold){
-//                microgear.Publish("/waterThreshold","on");
-//            }
-//            else {
-//                microgear.Publish("/waterThreshold","off");
-//            }
-//        });
+        Microgear microgear =  new Microgear();
+        microgear.connect(netPieAppId,netPieKey,netPieSecret);
+        microgear.Publish("/waterThreshold","on");
+        deviceSettingService.list().forEach(deviceSetting -> {
+
+            boolean isMetThreshold = deviceSetting.getWaterThreshold() < environStat.getAverageHumid();
+            //check threshold
+            if(isMetThreshold){
+                microgear.Publish("/waterThreshold","on");
+            }
+            else {
+                microgear.Publish("/waterThreshold","off");
+            }
+        });
 
     }
 

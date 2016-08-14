@@ -10,27 +10,27 @@ import java.util.List;
 public class DeviceSettingController {
     @Autowired
     DeviceSettingService deviceSettingService;
-    @RequestMapping(value = "/deviceSettings",method = RequestMethod.GET)
+    @RequestMapping(value = "/deviceSetting",method = RequestMethod.GET)
     public List<DeviceSetting> list(){
         return deviceSettingService.list();
     }
 
-    @RequestMapping(value = "/deviceSettings",method = RequestMethod.POST)
+    @RequestMapping(value = "/deviceSetting",method = RequestMethod.POST)
     public DeviceSetting create(@RequestBody DeviceSetting deviceSetting){
         return deviceSettingService.create(deviceSetting);
     }
 
-    @RequestMapping(value = "/deviceSettings/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/deviceSetting/{id}",method = RequestMethod.GET)
     public  DeviceSetting getDevice(@PathVariable("id") Long id){
         return deviceSettingService.getDeviceSetting(id);
     }
 
-    @RequestMapping(value = "/deviceSettings/{id}",method = RequestMethod.PUT)
+    @RequestMapping(value = "/deviceSetting/{id}",method = RequestMethod.PUT)
     public  DeviceSetting edit(@PathVariable("id") Long id,@RequestBody DeviceSetting deviceSetting){
         return deviceSettingService.update(deviceSetting);
     }
 
-    @RequestMapping(value = "/deviceSettings/{id}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deviceSetting/{id}",method = RequestMethod.DELETE)
     public  void delete(@PathVariable("id") Long id){
         deviceSettingService.delete(id);
     }

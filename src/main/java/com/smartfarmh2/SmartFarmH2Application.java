@@ -2,6 +2,8 @@ package com.smartfarmh2;
 
 import com.smartfarmh2.device.Device;
 import com.smartfarmh2.device.DeviceService;
+import com.smartfarmh2.device.DeviceSetting;
+import com.smartfarmh2.device.DeviceSettingService;
 import com.smartfarmh2.product.Product;
 import com.smartfarmh2.product.ProductRepository;
 import com.smartfarmh2.productStock.ProductStock;
@@ -24,6 +26,8 @@ public class SmartFarmH2Application implements CommandLineRunner {
 	private ProductStockRepository productStockRepository;
 	@Autowired
 	private DeviceService deviceService;
+	@Autowired
+	private DeviceSettingService deviceSettingService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SmartFarmH2Application.class, args);
@@ -44,5 +48,9 @@ public class SmartFarmH2Application implements CommandLineRunner {
 		Device device2 = new Device();
 		device2.setName("Exp02");
 		deviceService.create(device2);
+
+		DeviceSetting deviceSetting = new DeviceSetting();
+		deviceSetting.setDevice(device);
+		deviceSetting.setWaterThreshold(50.0);
 	}
 }
