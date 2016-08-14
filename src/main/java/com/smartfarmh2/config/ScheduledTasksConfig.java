@@ -10,16 +10,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
-
-import Microgear.Microgear;
 
 @Component
 public class ScheduledTasksConfig {
@@ -43,6 +46,17 @@ public class ScheduledTasksConfig {
     @Autowired
     DeviceSettingService deviceSettingService;
 
+    // http sender
+    private RestTemplate restTemplate;
+    private HttpHeaders headers;
+
+    public ScheduledTasksConfig() {
+        restTemplate = new RestTemplate();
+        headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", netPieKey+":"+netPieSecret);
+    }
+
     // Do every hour
     @Scheduled(cron = "0 0 * * * *")
     public void calculateEnvironStatEveryHour() {
@@ -61,21 +75,26 @@ public class ScheduledTasksConfig {
         simpMessagingTemplate.convertAndSend("/environStat/today/hour/latest", environStat);
 
         // command device to turn on/off water if threshold is met
-        Microgear microgear =  new Microgear();
-        microgear.connect(netPieAppId,netPieKey,netPieSecret);
-        microgear.Publish("/waterThreshold","on");
         deviceSettingService.list().forEach(deviceSetting -> {
-
-            boolean isMetThreshold = deviceSetting.getWaterThreshold() < environStat.getAverageHumid();
+            String deviceName = deviceService.getDevice(deviceSetting.getDevice().getId()).getName();
+            boolean isMetThreshold = deviceSetting.getWaterThreshold() < environStat.getAverageSoil();
             //check threshold
             if(isMetThreshold){
-                microgear.Publish("/waterThreshold","on");
+                turnWaterSwitch(deviceName,"on");
             }
             else {
-                microgear.Publish("/waterThreshold","off");
+                turnWaterSwitch(deviceName,"off");
             }
         });
-
     }
-
+    private void turnWaterSwitch(String deviceName, String status){
+        try {
+            String netPiePath = "https://api.netpie.io/microgear/" + netPieAppId + "/" + deviceName + "?retain";
+            restTemplate.exchange(netPiePath, HttpMethod.GET, new HttpEntity<Object>(headers), String.class);
+        }
+        catch (Exception e) {
+            log.error("turnWaterSwitch: " + status + " has error");
+            e.printStackTrace();
+        }
+    }
 }
