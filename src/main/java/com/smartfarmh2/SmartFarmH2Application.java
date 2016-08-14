@@ -42,7 +42,7 @@ public class SmartFarmH2Application implements CommandLineRunner {
 		productStockRepository.save(new ProductStock(productRepository.findOne(1L),20));
 
 		Device device = new Device();
-		device.setName("Exp01");
+		device.setName("espsmartfarm2");
 		deviceService.create(device);
 
 		Device device2 = new Device();
@@ -52,5 +52,6 @@ public class SmartFarmH2Application implements CommandLineRunner {
 		DeviceSetting deviceSetting = new DeviceSetting();
 		deviceSetting.setDevice(device);
 		deviceSetting.setWaterThreshold(50.0);
+		deviceSettingService.create(deviceSetting);
 	}
 }

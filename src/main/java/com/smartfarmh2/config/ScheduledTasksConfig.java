@@ -17,11 +17,13 @@ import org.springframework.http.MediaType;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.Date;
 
 @Component
@@ -46,15 +48,10 @@ public class ScheduledTasksConfig {
     @Autowired
     DeviceSettingService deviceSettingService;
 
-    // http sender
     private RestTemplate restTemplate;
-    private HttpHeaders headers;
 
     public ScheduledTasksConfig() {
         restTemplate = new RestTemplate();
-        headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", netPieKey+":"+netPieSecret);
     }
 
     // Do every hour
@@ -68,7 +65,7 @@ public class ScheduledTasksConfig {
     }
 
     // Do every 30s
-    @Scheduled(fixedDelay=30000)
+    @Scheduled(fixedDelay=1000)
     public void calculateEnvironStatEveryMinute() {
         log.info("Date time: " + LocalDateTime.now().toString());
         EnvironStat environStat = environStatService.calculateStatOfCurrentHour();
@@ -88,9 +85,16 @@ public class ScheduledTasksConfig {
         });
     }
     private void turnWaterSwitch(String deviceName, String status){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        try {
+            httpHeaders.set("Authorization", "Basic " + Base64.getEncoder().encodeToString((netPieKey + ":" + netPieSecret).getBytes("utf-8")));
+        }catch (Exception e){
+            log.error("ERROR","Unsupported encode exception");
+            e.printStackTrace();
+        }
         try {
             String netPiePath = "https://api.netpie.io/microgear/" + netPieAppId + "/" + deviceName + "?retain";
-            restTemplate.exchange(netPiePath, HttpMethod.GET, new HttpEntity<Object>(headers), String.class);
+            restTemplate.exchange(netPiePath, HttpMethod.PUT, new HttpEntity(httpHeaders), String.class);
         }
         catch (Exception e) {
             log.error("turnWaterSwitch: " + status + " has error");
