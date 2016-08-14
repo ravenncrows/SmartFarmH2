@@ -94,7 +94,7 @@ public class ScheduledTasksConfig {
         }
         try {
             String netPiePath = "https://api.netpie.io/microgear/" + netPieAppId + "/" + deviceName + "?retain";
-            restTemplate.exchange(netPiePath, HttpMethod.PUT, new HttpEntity(httpHeaders), String.class);
+            restTemplate.exchange(netPiePath, HttpMethod.PUT, new HttpEntity<String>(status,httpHeaders), String.class);
         }
         catch (Exception e) {
             log.error("turnWaterSwitch: " + status + " has error");
