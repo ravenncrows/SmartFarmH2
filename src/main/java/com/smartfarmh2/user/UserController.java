@@ -28,4 +28,9 @@ public class UserController {
     public  User getByUsername(@RequestParam("name")String name){
         return userService.findByUserName(name);
     }
+
+    @RequestMapping(value = "/user/NewAccount",method = RequestMethod.GET)
+    public List<User> newAccount(){
+        return userService.findNewAccount();
+    }
 }

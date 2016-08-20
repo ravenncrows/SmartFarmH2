@@ -21,8 +21,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
-    @Autowired
-    private RoleDao roleDao;
 
     public UserServiceImpl() {
     }
@@ -44,10 +42,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
-        Role userRole = roleDao.findByRoleName(user.getRoles().iterator().next().getRoleName());
-        Set<Role> roles = new HashSet<>();
-        roles.add(userRole);
-        user.setRoles(roles);
         return userDao.create(user);
+    }
+
+    @Override
+    public List<User> findNewAccount() {
+        return userDao.findNewAccount();
     }
 }

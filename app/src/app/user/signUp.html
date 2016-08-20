@@ -1,0 +1,40 @@
+<div class="row">
+  <form ng-hide="user">
+    <div class="panel panel-default col-md-4 col-md-offset-4">
+      <div class="panel-heading">
+        Sign-Up
+      </div>
+      <div class="panel-body">
+        <div class="alert alert-success alert-dismissible" role="alert" ng-show="vm.success">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <strong>Success!</strong> send register request, please wait for system admin.
+        </div>
+        <label for="username">Username</label>
+        <input type="text" id="username" minlength="4" maxlength="18" required ng-model="vm.user.username">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" minlength="4" maxlength="18" required ng-model="vm.user.password">
+
+        <label for="confirm-password">Password</label>
+        <input type="password" id="confirm-password" minlength="4" maxlength="18" required >
+
+        <label for="name">First Name</label>
+        <input type="text" id="name" minlength="4" maxlength="18" required ng-model="vm.user.name">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" minlength="4" maxlength="18" required ng-model="vm.user.lastName">
+
+        <label for="email">E-mail</label>
+        <input type="email" id="email" required ng-model="vm.user.email">
+        <label for="phone">Phone Number</label>
+        <input type="text" id="phone" pattern="" required ng-model="vm.user.phoneNumber">
+
+        <label for="dob">Date Of Birth</label>
+        <input type="date" id="dob" required ng-model="vm.user.dob">
+      </div>
+      <div class="panel-footer">
+        <input type="submit" value="submit" ng-click="vm.register(vm.user)">
+      </div>
+    </div>
+  </form>
+</div>

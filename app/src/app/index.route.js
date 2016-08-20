@@ -41,6 +41,15 @@
             return deviceService.query();
           }
         }
+      }).when('/login',{
+        templateUrl:'app/security/signIn.html',
+        controller:'loginController',
+        controllerAs:'vm'
+      })
+      .when('/register',{
+        templateUrl:'app/user/signUp.html',
+        controller:'registerController',
+        controllerAs:'vm'
       })
       .otherwise({
         redirectTo: '/listProduct'
