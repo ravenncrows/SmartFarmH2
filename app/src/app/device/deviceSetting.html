@@ -1,0 +1,23 @@
+<div>
+    <div class="modal-header">
+      <h3 class="modal-title">Device setting of {{vm.device.name}}</h3>
+    </div>
+    <div class="modal-body">
+        <form role="form">
+          <div class="form-group">
+            <label for="waterThreshold">Water threshold</label>
+            <input type="text" class="form-control" id="waterThreshold" placeholder="Enter water threshold" ng-model="vm.deviceSetting.waterThreshold" required>
+          </div>
+          <div class="form-group" style="width: 100%">
+            <div class="col-xs-8" ng-hide="!vm.deviceSetting.id">
+              <button class="btn btn-danger col-xs-6" type="submit" ng-click="vm.deleteDeviceSetting(vm.deviceSetting.id)" value="submit">Delete</button>
+              <button class="btn btn-default col-xs-6" type="submit" ng-click="vm.updateDeviceSetting(vm.deviceSetting.id)" value="submit">Update</button>
+            </div>
+            <button class="btn btn-primary col-xs-4" type="submit" ng-click="vm.addDeviceSetting()" value="submit">Create</button>
+          </div>
+        </form>
+      </div>
+    <div class="modal-footer">
+      <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+    </div>
+</div>

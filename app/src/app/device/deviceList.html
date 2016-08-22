@@ -1,8 +1,10 @@
+
 <table class="table table-hover">
   <thead>
   <tr>
     <th>Device ID</th>
     <th>Device Name</th>
+    <th class="text-center">Setting</th>
     <th class="text-center">Update</th>
     <th class="text-center">Delete</th>
   </tr>
@@ -11,6 +13,9 @@
   <tr ng-repeat="device in vm.devices">
     <td>{{device.id}}</td>
     <td>{{device.name}}</td>
+    <td>
+      <button class="btn btn-primary" ng-click="vm.openSettingModal(device)" style="width: 90%">Setting</button>
+    </td>
     <td class="text-center">
       <button class="btn btn-default" ng-click="vm.updateDevice(device.id)" style="width: 90%">Update</button>
     </td>

@@ -1,6 +1,11 @@
 # Server
 server:
     port: 8080
+# Netpie
+netpie:
+    appId: ThisISappId
+    key: ThisISappKey
+    secret: ThisISappSecret
 # Standard Spring Boot properties.
 spring:
     application:

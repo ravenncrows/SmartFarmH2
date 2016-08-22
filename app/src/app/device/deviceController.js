@@ -3,11 +3,12 @@
 
   angular
     .module('app')
-    .controller('listDeviceController', listDeviceController);
+    .controller('listDeviceController', listDeviceController)
+    .controller('modalDeviceSettingInstanceController', modalDeviceSettingInstanceController);
 
 
   /** @ngInject */
-  function listDeviceController(deviceService, $log, devices, $timeout) {
+  function listDeviceController(deviceService, deviceSettingService, $log, devices, $timeout, $uibModal) {
     var vm = this;
     vm.device = {};
     vm.devices = devices;
@@ -49,5 +50,67 @@
       });
     };
 
+    vm.openSettingModal = function(device){
+      var modalInstance = $uibModal.open({
+        animation: true,
+        templateUrl: 'app/device/deviceSetting.html',
+        controller: 'modalDeviceSettingInstanceController',
+        controllerAs: 'vm',
+        size:'m',
+        resolve: {
+          device: function () {
+            return device;
+          },
+          deviceSetting: function () {
+            return deviceSettingService.get({id: device.id})
+          }
+        }
+      });
+      modalInstance.result.then(function () {
+      }, function () {
+        $log.info('Modal dismissed at: ' + new Date());
+      });
+    }
+  }
+
+  function modalDeviceSettingInstanceController($uibModalInstance, deviceSettingService, device, deviceSetting, $timeout) {
+    var vm = this;
+    vm.deviceSetting = deviceSetting;
+    vm.device = device;
+    vm.ok = function () {
+      $uibModalInstance.close();
+    };
+
+    vm.cancel = function () {
+      $uibModalInstance.dismiss('cancel');
+    };
+
+    vm.deleteDeviceSetting = function (id) {
+      var answer = confirm("Do you want to delete the setting of this device?");
+      if (answer) {
+        deviceSettingService.delete({id: id}, function () {
+          $timeout(function(){
+            vm.deviceSetting = undefined;
+          },0);
+        })
+      }
+    };
+
+    vm.updateDeviceSetting = function (id) {
+      deviceSettingService.update( { id: id }, vm.deviceSetting, function(newDeviceSetting){
+        $timeout(function(){
+          vm.deviceSetting = newDeviceSetting;
+        },0);
+      });
+    };
+
+    vm.addDeviceSetting = function () {
+      vm.deviceSetting.device = device;
+      deviceSettingService.save(vm.deviceSetting, function(newDeviceSetting){
+        $timeout(function(){
+          vm.deviceSetting = newDeviceSetting;
+        },0);
+      });
+    };
   }
 })();

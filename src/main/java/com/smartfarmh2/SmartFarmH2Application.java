@@ -2,6 +2,8 @@ package com.smartfarmh2;
 
 import com.smartfarmh2.device.Device;
 import com.smartfarmh2.device.DeviceService;
+import com.smartfarmh2.device.DeviceSetting;
+import com.smartfarmh2.device.DeviceSettingService;
 import com.smartfarmh2.product.Product;
 import com.smartfarmh2.product.ProductRepository;
 import com.smartfarmh2.productStock.ProductStock;
@@ -31,6 +33,8 @@ public class SmartFarmH2Application implements CommandLineRunner {
 	@Autowired
 	private DeviceService deviceService;
 	@Autowired
+	private DeviceSettingService deviceSettingService;
+	@Autowired
 	UserRepository userRepository;
 	@Autowired
 	RoleRepository roleRepository;
@@ -48,12 +52,17 @@ public class SmartFarmH2Application implements CommandLineRunner {
 		productStockRepository.save(new ProductStock(productRepository.findOne(1L),20));
 
 		Device device = new Device();
-		device.setName("Exp01");
+		device.setName("espsmartfarm2");
 		deviceService.create(device);
 
 		Device device2 = new Device();
 		device2.setName("Exp02");
 		deviceService.create(device2);
+
+		DeviceSetting deviceSetting = new DeviceSetting();
+		deviceSetting.setDevice(device);
+		deviceSetting.setWaterThreshold(50.0);
+		deviceSettingService.create(deviceSetting);
 
 		Role admin = new Role("admin");
 		Role newUser = new Role("newUser");
