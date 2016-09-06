@@ -38,7 +38,7 @@
         controllerAs: 'vm',
         resolve: {
           devices : function(deviceService){
-            return deviceService.query();
+            return deviceService.query().$promise;
           }
         }
       }).when('/login',{

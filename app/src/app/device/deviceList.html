@@ -4,7 +4,6 @@
   <tr>
     <th>Device ID</th>
     <th>Device Name</th>
-    <th class="text-center">Setting</th>
     <th class="text-center">Update</th>
     <th class="text-center">Delete</th>
   </tr>
@@ -13,9 +12,6 @@
   <tr ng-repeat="device in vm.devices">
     <td>{{device.id}}</td>
     <td>{{device.name}}</td>
-    <td>
-      <button class="btn btn-primary" ng-click="vm.openSettingModal(device)" style="width: 90%">Setting</button>
-    </td>
     <td class="text-center">
       <button class="btn btn-default" ng-click="vm.updateDevice(device.id)" style="width: 90%">Update</button>
     </td>
@@ -34,6 +30,11 @@
     <td><input type="text" ng-model="vm.newDevice.name" class="form-control" width="90%" placeholder="New device name"></td>
     <td colspan="2" class="text-center"><button ng-click="vm.addDevice()" class="btn btn-success" style="width: 90%">ADD</button></td>
   </tr>
-
+  <tr>
+    <td colspan="4">
+    <button class="btn btn-primary" ng-click="vm.openSettingModal(vm.waterControllerDevice)" style="width: 90%">Set water threshold</button>
+  </td>
+  </tr>
   </tbody>
 </table>
+

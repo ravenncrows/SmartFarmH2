@@ -13,6 +13,9 @@
     vm.device = {};
     vm.devices = devices;
     vm.newDevice = {};
+    vm.waterControllerDevice = devices[0]; // fix to devices[0]
+    //fix water controller device by name using the following line and replace __name_of_device__ with device name 
+      //devices.filter(function(device){device.name == '__name_of_device__'}).pop();
 
     vm.loadDevices = function() {
       deviceService
@@ -20,6 +23,8 @@
           function(loadedDevices) {
             $timeout(function(){
               vm.devices = loadedDevices;
+              vm.waterControllerDevice = loadedDevices[0] || {};
+              $log.debug(vm.waterControllerDevice);
             },0);
           }, function handleError(err) {
             $log.error(err);
