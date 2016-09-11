@@ -49,7 +49,7 @@ public class EnvironStatServiceImpl implements EnvironStatService{
         LocalDateTime finishDate = LocalDateTime.of(date, LocalDateTime.now().withHour(23).withMinute(59).withSecond(59).toLocalTime());
         List<Environ> environList = environService.findByCreatedDateBetween(startDate,finishDate);
         EnvironStat environStat = createEnvironStatFromEnvironList(environList);
-        environStat.setCreatedAt(LocalDateTime.now());
+        environStat.setCreatedAt(finishDate);
         return environStat;
     }
 
