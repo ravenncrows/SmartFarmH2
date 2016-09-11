@@ -11,6 +11,7 @@ import java.util.List;
 public class EnvironStatServiceImpl implements EnvironStatService{
     @Autowired
     EnvironStatDao environStatDao;
+
     @Autowired
     EnvironService environService;
 
@@ -45,8 +46,8 @@ public class EnvironStatServiceImpl implements EnvironStatService{
 
     @Override
     public EnvironStat calculateStatOfDay(LocalDate date) {
-        LocalDateTime startDate = LocalDateTime.of(date, LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).toLocalTime());
-        LocalDateTime finishDate = LocalDateTime.of(date, LocalDateTime.now().withHour(23).withMinute(59).withSecond(59).toLocalTime());
+        LocalDateTime startDate = LocalDateTime.of(date, LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0).toLocalTime());
+        LocalDateTime finishDate = LocalDateTime.of(date, LocalDateTime.now().withHour(23).withMinute(59).withSecond(59).withNano(999_999_999).toLocalTime());
         List<Environ> environList = environService.findByCreatedDateBetween(startDate,finishDate);
         EnvironStat environStat = createEnvironStatFromEnvironList(environList);
         environStat.setCreatedAt(finishDate);
@@ -86,5 +87,9 @@ public class EnvironStatServiceImpl implements EnvironStatService{
         environStat.setAverageHumid(humidSum / environList.size());
         environStat.setAverageSoil(soilSum / environList.size());
         return environStat;
+    }
+
+    public void setEnvironService(EnvironService environService) {
+        this.environService = environService;
     }
 }
