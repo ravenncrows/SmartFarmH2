@@ -59,9 +59,19 @@ public class EnvironStatServiceImpl implements EnvironStatService{
         EnvironStat environStat = new EnvironStat();
         // return if there is nothing to calculate;
         if(environList.size() == 0) return environStat;
-
+        boolean isEnvironStatNull = true;
         Double tempSum = 0.0, humidSum = 0.0, soilSum = 0.0;
         for (Environ environ : environList) {
+            // Set stat to first environ if null
+            if(isEnvironStatNull) {
+                environStat.setLowestTemp(environ.getTemp());
+                environStat.setLowestHumid(environ.getHumid());
+                environStat.setLowestSoil(environ.getSoil());
+                environStat.setHighestTemp(environ.getTemp());
+                environStat.setHighestHumid(environ.getHumid());
+                environStat.setHighestSoil(environ.getSoil());
+                isEnvironStatNull = false;
+            }
             // Set temperature
             if(environStat.getLowestTemp() > environ.getTemp())
                 environStat.setLowestTemp(environ.getTemp());
