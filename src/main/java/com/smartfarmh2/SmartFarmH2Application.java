@@ -61,7 +61,8 @@ public class SmartFarmH2Application implements CommandLineRunner {
 
 		DeviceSetting deviceSetting = new DeviceSetting();
 		deviceSetting.setDevice(device);
-		deviceSetting.setWaterThreshold(50.0);
+		deviceSetting.setWaterThresholdOn(20.0);
+		deviceSetting.setWaterThresholdOff(40.0);
 		deviceSettingService.create(deviceSetting);
 
 		Role admin = new Role("admin");

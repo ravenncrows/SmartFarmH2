@@ -74,12 +74,14 @@ public class ScheduledTasksConfig {
         // command device to turn on/off water if threshold is met
         deviceSettingService.list().forEach(deviceSetting -> {
             String deviceName = deviceService.getDevice(deviceSetting.getDevice().getId()).getName();
-            boolean isMetThreshold = deviceSetting.getWaterThreshold() < environStat.getAverageSoil();
+            boolean shouldTurnWaterOn = deviceSetting.getWaterThresholdOn() > environStat.getAverageSoil();
+            boolean shouldTurnWaterOff = deviceSetting.getWaterThresholdOff() < environStat.getAverageSoil();
+
             //check threshold
-            if(isMetThreshold){
+            if(shouldTurnWaterOn){
                 turnWaterSwitch(deviceName,"on");
             }
-            else {
+            else if(shouldTurnWaterOff){
                 turnWaterSwitch(deviceName,"off");
             }
         });

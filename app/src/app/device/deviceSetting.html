@@ -5,8 +5,12 @@
     <div class="modal-body">
         <form role="form">
           <div class="form-group">
-            <label for="waterThreshold">Water threshold</label>
-            <input type="text" class="form-control" id="waterThreshold" placeholder="Enter water threshold" ng-model="vm.deviceSetting.waterThreshold" required>
+            <label for="waterThresholdOn">Water threshold ON</label>
+            <input type="text" class="form-control" id="waterThresholdOn" placeholder="Enter water threshold" ng-model="vm.deviceSetting.waterThresholdOn" required>
+          </div>
+          <div class="form-group">
+            <label for="waterThresholdOff">Water threshold OFF</label>
+            <input type="text" class="form-control" id="waterThresholdOff" placeholder="Enter water threshold" ng-model="vm.deviceSetting.waterThresholdOff" required>
           </div>
           <div class="form-group" style="width: 100%">
             <div class="col-xs-8" ng-hide="!vm.deviceSetting.id">

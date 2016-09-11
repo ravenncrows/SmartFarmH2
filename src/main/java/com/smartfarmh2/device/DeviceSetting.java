@@ -15,5 +15,6 @@ public class DeviceSetting {
     Long id;
     @OneToOne
     Device device;
-    Double waterThreshold;
+    Double waterThresholdOn;
+    Double waterThresholdOff;
 }
